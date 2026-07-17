@@ -10,7 +10,7 @@ if teleportFunc then
 		if not game:IsLoaded() then
 			game.Loaded:Wait()
 		end
-		loadstring(game:HttpGet("https://pastefy.app/jgNOlvwT/raw"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/dramukin-fermal/Others/refs/heads/main/Drain%20the%20lake%20-%20Diamond%20farm"))()
 	]])
 end
 
