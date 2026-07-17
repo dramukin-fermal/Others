@@ -1,0 +1,45 @@
+if game.PlaceId == 138381251771774 then
+	game:GetService("TeleportService"):Teleport("124786371598438")
+	wait(3)
+	game.Players.LocalPlayer:Kick("Turn off Delta's Verify Teleport first")
+end
+
+local teleportFunc = queueonteleport or queue_on_teleport
+if teleportFunc then
+	teleportFunc([[
+		if not game:IsLoaded() then
+			game.Loaded:Wait()
+		end
+		loadstring(game:HttpGet("https://pastefy.app/jgNOlvwT/raw"))()
+	]])
+end
+
+local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local hrp = char:FindFirstChild("HumanoidRootPart")
+if not hrp then
+	repeat task.wait()
+		hrp = char:FindFirstChild("HumanoidRootPart")
+	until hrp
+end
+
+spawn(function()
+	while task.wait() do
+		hrp.Velocity = Vector3.zero
+		for i,v in pairs(char:GetChildren()) do
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+			end
+		end
+	end
+end)
+
+if not workspace:FindFirstChild("Scripted") or not workspace.Scripted:FindFirstChild("Chests") then
+	repeat task.wait() until workspace:FindFirstChild("Scripted") and workspace.Scripted:FindFirstChild("Chests")
+end
+for i,v in pairs(workspace.Scripted.Chests:GetChildren()) do
+	char:PivotTo(v:GetPivot() * CFrame.new(0,-8,0))
+	task.wait(.2)
+	fireproximityprompt(v.Part.ProximityPrompt)
+end
+
+game:GetService("TeleportService"):Teleport("124786371598438")
