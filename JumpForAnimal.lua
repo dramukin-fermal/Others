@@ -6,7 +6,7 @@ getgenv().ExecutedFarm = true
 local queueonteleport = queueonteleport or queue_on_teleport
 if queueonteleport then
     queueonteleport([[
-    loadstring(game:HttpGet('https://pastefy.app/LeYWwx8V/raw'))()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/dramukin-fermal/Others/refs/heads/main/JumpForAnimal.lua'))()
     ]])
 end
 
