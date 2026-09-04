@@ -113,24 +113,39 @@ BlackScreenFrame.MouseButton1Click:Connect(function()
     ToggleBlackScreen(false)
 end)
 
-local function GetEggAttributes()
-    local Eggs = Workspace.Map.Stages["Celestial Heights"].SpawnedEggs
-    for i, v in pairs(Eggs:GetChildren()) do
-        if v:GetAttribute("CPSMultiplier") and v:GetAttribute("SizeMultiplier") then
-            foundEgg = true
-            eggCPS = tostring(v:GetAttribute("CPSMultiplier"))
-            eggSize = tostring(v:GetAttribute("SizeMultiplier"))
-            return
-        end
-    end
-    foundEgg = false
-    eggCPS = "N/A"
-    eggSize = "N/A"
+local function GetEggAttributes(egg)
+    if not egg then return nil, nil end
+    local cps = egg:GetAttribute("CPSMultiplier")
+    local size = egg:GetAttribute("SizeMultiplier")
+    return cps, size
 end
 
 spawn(function()
     while wait() do
-        GetEggAttributes()
+        local Eggs = Workspace.Map.Stages["Celestial Heights"].SpawnedEggs
+        local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus"}
+        local foundAny = false
+        local cpsList = {}
+        local sizeList = {}
+        for i,v in pairs(Eggs:GetChildren()) do
+            if table.find(eggwanted, v.Name:lower()) and not (v.Name == "FIRE PHOENIX" and v:GetAttribute("CPSMultiplier") < 1.4) then
+                local cps, size = GetEggAttributes(v)
+                if cps and size then
+                    foundAny = true
+                    table.insert(cpsList, tostring(cps))
+                    table.insert(sizeList, tostring(size))
+                end
+            end
+        end
+        if foundAny then
+            foundEgg = true
+            eggCPS = table.concat(cpsList, ", ")
+            eggSize = table.concat(sizeList, ", ")
+        else
+            foundEgg = false
+            eggCPS = "N/A"
+            eggSize = "N/A"
+        end
         if foundEgg then
             BlackScreenFrame.Text = "CPSMultiplier: " .. eggCPS .. "\nSizeMultiplier: " .. eggSize .. "\nstatus: " .. statusText
         else
@@ -182,15 +197,20 @@ local Eggs = game:GetService("Workspace").Map.Stages["Celestial Heights"].Spawne
 for i,v in pairs(Eggs:GetChildren()) do
     if table.find(eggwanted, v.Name:lower()) and not (v.Name == "FIRE PHOENIX" and v:GetAttribute("CPSMultiplier") < 1.4) then
         char:PivotTo(v:GetPivot() * CFrame.new(0,-10,0))
-        local p = v: FindFirstChildWhichIsA("ProximityPrompt", true)
+        local p = v:FindFirstChildWhichIsA("ProximityPrompt", true)
         if p then
             found = true
             statusText = "collecting " .. v.Name
             local start = tick()
-            repeat task.wait()
-                idleFloat() fireproximityprompt(p) char:PivotTo(v:GetPivot() * CFrame.new(0,-5,0))
+            repeat 
+                task.wait()
+                idleFloat() 
+                fireproximityprompt(p) 
+                char:PivotTo(v:GetPivot() * CFrame.new(0,-5,0))
             until not p or not p.Parent or not p.Enabled
-            repeat task.wait()
+            wait()
+            repeat 
+                task.wait()
                 char:PivotTo(CFrame.new(0,10000,0))
             until not v or not v.parent or tick() - start >= 5
         end
