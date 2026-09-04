@@ -1,6 +1,8 @@
 if getgenv().ExecutedFarm then return end
 getgenv().ExecutedFarm = true
-
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
 game:GetService("RunService"):Set3dRenderingEnabled(false)
 local queueonteleport = queueonteleport or queue_on_teleport
 if queueonteleport then
