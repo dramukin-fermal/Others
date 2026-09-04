@@ -97,6 +97,6 @@ end
 
 httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 if found then
-	wait(1)
+	wait()
 end
 allowShop = true
