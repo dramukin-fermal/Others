@@ -2,15 +2,13 @@ if getgenv().ExecutedFarm then return end
 getgenv().ExecutedFarm = true
 
 game:GetService("RunService"):Set3dRenderingEnabled(false)
-if not game:IsLoaded() then
-    game.Loaded:Wait()
-end
 local queueonteleport = queueonteleport or queue_on_teleport
 if queueonteleport then
     queueonteleport([[
     loadstring(game:HttpGet('https://raw.githubusercontent.com/dramukin-fermal/Others/refs/heads/main/JumpForAnimal.lua'))()
     ]])
 end
+
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -122,30 +120,6 @@ end
 
 spawn(function()
     while wait() do
-        local Eggs = Workspace.Map.Stages["Celestial Heights"].SpawnedEggs
-        local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus"}
-        local foundAny = false
-        local cpsList = {}
-        local sizeList = {}
-        for i,v in pairs(Eggs:GetChildren()) do
-            if table.find(eggwanted, v.Name:lower()) and not (v.Name == "FIRE PHOENIX" and v:GetAttribute("CPSMultiplier") < 1.4) then
-                local cps, size = GetEggAttributes(v)
-                if cps and size then
-                    foundAny = true
-                    table.insert(cpsList, tostring(cps))
-                    table.insert(sizeList, tostring(size))
-                end
-            end
-        end
-        if foundAny then
-            foundEgg = true
-            eggCPS = table.concat(cpsList, ", ")
-            eggSize = table.concat(sizeList, ", ")
-        else
-            foundEgg = false
-            eggCPS = "N/A"
-            eggSize = "N/A"
-        end
         if foundEgg then
             BlackScreenFrame.Text = "CPSMultiplier: " .. eggCPS .. "\nSizeMultiplier: " .. eggSize .. "\nstatus: " .. statusText
         else
@@ -196,6 +170,12 @@ local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus"}
 local Eggs = game:GetService("Workspace").Map.Stages["Celestial Heights"].SpawnedEggs
 for i,v in pairs(Eggs:GetChildren()) do
     if table.find(eggwanted, v.Name:lower()) and not (v.Name == "FIRE PHOENIX" and v:GetAttribute("CPSMultiplier") < 1.4) then
+        local cps, size = GetEggAttributes(v)
+        if cps and size then
+            foundEgg = true
+            eggCPS = tostring(cps)
+            eggSize = tostring(size)
+        end
         char:PivotTo(v:GetPivot() * CFrame.new(0,-10,0))
         local p = v:FindFirstChildWhichIsA("ProximityPrompt", true)
         if p then
