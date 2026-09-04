@@ -169,7 +169,7 @@ local found = false
 local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus"}
 local Eggs = game:GetService("Workspace").Map.Stages["Celestial Heights"].SpawnedEggs
 for i,v in pairs(Eggs:GetChildren()) do
-    if table.find(eggwanted, v.Name:lower()) and not (v.Name == "FIRE PHOENIX" and v:GetAttribute("CPSMultiplier") < 0.5) then
+    if table.find(eggwanted, v.Name:lower()) and not (v.Name == "FIRE PHOENIX" and v:GetAttribute("CPSMultiplier") < 1.1) then
         local cps, size = GetEggAttributes(v)
         if cps and size then
             foundEgg = true
