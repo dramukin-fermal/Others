@@ -78,7 +78,7 @@ local eggwanted = {"PLESIOSAUR", "FIRE PHOENIX", "WYVERN", "PEGASUS"}
 local Eggs = game:GetService("Workspace").Map.Stages["Celestial Heights"].SpawnedEggs
 for i,v in pairs(Eggs:GetChildren()) do
 	if table.find(eggwanted, v.Name) then
-		char:PivotTo(v:GetPivot() * CFrame.new(0,-8,0))
+		char:PivotTo(v:GetPivot() * CFrame.new(0,-10,0))
 		local p = v: FindFirstChildWhichIsA("ProximityPrompt", true)
 		if p then
 			found = true
