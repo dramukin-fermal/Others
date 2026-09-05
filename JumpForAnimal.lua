@@ -86,7 +86,8 @@ for i,v in pairs(Eggs:GetChildren()) do
 			repeat task.wait()
 				idleFloat() fireproximityprompt(p) char:PivotTo(v:GetPivot() * CFrame.new(0,-5,0))
 			until not p or not p.Parent or not p.Enabled
-			wait()
+			char:PivotTo(CFrame.new(0,10000,0))
+			wait(.1)
 			repeat task.wait()
 				char:PivotTo(CFrame.new(0,10000,0))
 			until not v or not v.parent or tick() - start >= 5
