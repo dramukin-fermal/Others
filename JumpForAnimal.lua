@@ -73,24 +73,32 @@ local function idleFloat()
 	end
 end
 
+local function getNow()
+	if lp:GetAttribute("CarriedEggCount") and tonumber(lp:GetAttribute("CarriedEggCount")) >= 1 then
+	repeat
+		char:PivotTo(CFrame.new(0,10000,0))
+	task.wait() until tonumber(lp:GetAttribute("CarriedEggCount")) <= 0
+	end
+end
 local found = false
-local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus", "shoebill", "hyena", "honeybadger", "secretarybird"}
+local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus", "shoebill", "hyena", "honeybadger", "secretarybird","caracal"}
 local Eggs = workspace.Map.Stages.Savannah.SpawnedEggs
 for i,v in pairs(Eggs:GetChildren()) do
-	if table.find(eggwanted, v.Name:lower()) and not (v.Name == "Caracal" and v:GetAttribute("CPSMultiplier") < 1) then
+	if table.find(eggwanted, v.Name:lower()) and not (v.Name == "Caracal" and v:GetAttribute("CPSMultiplier") < 5) then
 		char:PivotTo(v:GetPivot() * CFrame.new(0,-10,0))
 		local p = v: FindFirstChildWhichIsA("ProximityPrompt", true)
 		if p then
 			found = true
+			getNow()
 			local start = tick()
 			repeat task.wait()
 				idleFloat() fireproximityprompt(p) char:PivotTo(v:GetPivot() * CFrame.new(0,-5,0))
-			until not p or not p.Parent or not p.Enabled
+			until not p or not p.Parent or not p.Enabled or tonumber(lp:GetAttribute("CarriedEggCount")) >= 1
 			char:PivotTo(CFrame.new(0,10000,0))
-			wait(.1)
+			getNow()
 			repeat task.wait()
 				char:PivotTo(CFrame.new(0,10000,0))
-			until not v or not v.parent or tick() - start >= 5
+			until not v or not v.parent or tick() - start >= 5 or tonumber(lp:GetAttribute("CarriedEggCount")) <= 0
 		end
 	end
 end
