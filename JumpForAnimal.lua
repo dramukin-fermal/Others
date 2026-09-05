@@ -74,7 +74,7 @@ local function idleFloat()
 end
 
 local found = false
-local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus", "hyena", "honeybadger", "secretarybird", "Caracal"}
+local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus", "shoebill", "hyena", "honeybadger", "secretarybird"}
 local Eggs = workspace.Map.Stages.Savannah.SpawnedEggs
 for i,v in pairs(Eggs:GetChildren()) do
 	if table.find(eggwanted, v.Name:lower()) and not (v.Name == "Caracal" and v:GetAttribute("CPSMultiplier") < 1) then
