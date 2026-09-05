@@ -81,7 +81,7 @@ local function getNow()
 	end
 end
 local found = false
-local eggwanted = {"shoebill", "hyena"}
+local eggwanted = {"shoebill", "hyena", "secretarybird"}
 local Eggs = workspace.Map.Stages.Savannah.SpawnedEggs
 for i,v in pairs(Eggs:GetChildren()) do
 	if table.find(eggwanted, v.Name:lower()) and not (v.Name:lower() == "honeybadger" and v:GetAttribute("CPSMultiplier") < 5) then
