@@ -74,10 +74,10 @@ local function idleFloat()
 end
 
 local found = false
-local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus", "hyena", "honeybadger", "secretarybird"}
-local Eggs = game:GetService("Workspace").Map.Stages["Celestial Heights"].SpawnedEggs
+local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus", "hyena", "honeybadger", "secretarybird", "Caracal"}
+local Eggs = workspace.Map.Stages.Savannah.SpawnedEggs
 for i,v in pairs(Eggs:GetChildren()) do
-	if table.find(eggwanted, v.Name:lower()) and not (v.Name == "FIRE PHOENIX" and v:GetAttribute("CPSMultiplier") < 7) then
+	if table.find(eggwanted, v.Name:lower()) and not (v.Name == "Caracal" and v:GetAttribute("CPSMultiplier") < 1) then
 		char:PivotTo(v:GetPivot() * CFrame.new(0,-10,0))
 		local p = v: FindFirstChildWhichIsA("ProximityPrompt", true)
 		if p then
