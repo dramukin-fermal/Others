@@ -81,10 +81,10 @@ local function getNow()
 	end
 end
 local found = false
-local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus", "shoebill", "hyena", "honeybadger", "secretarybird","caracal"}
+local eggwanted = {"plesiosaur", "fire phoenix", "wyvern", "pegasus", "shoebill", "hyena", "honeybadger", "secretarybird"}
 local Eggs = workspace.Map.Stages.Savannah.SpawnedEggs
 for i,v in pairs(Eggs:GetChildren()) do
-	if table.find(eggwanted, v.Name:lower()) and not (v.Name == "Caracal" and v:GetAttribute("CPSMultiplier") < 5) then
+	if table.find(eggwanted, v.Name:lower()) and not (v.Name:lower() == "honeybadger" and v:GetAttribute("CPSMultiplier") < 5) then
 		char:PivotTo(v:GetPivot() * CFrame.new(0,-10,0))
 		local p = v: FindFirstChildWhichIsA("ProximityPrompt", true)
 		if p then
